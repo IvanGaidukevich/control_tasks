@@ -34,8 +34,8 @@ print(f"{numbers}\n{leveler}")
 
 # task 2
 names_list = [names.get_first_name() for name in range(100)]
-names_between_am = [name for name in names_list if 64 < ord(name[:1]) < 78]
-other_names = [name for name in names_list if ord(name[:1]) > 77]
+names_between_am = [name for name in names_list if "A" <= name[:1] <= "M"]
+other_names = [name for name in names_list if name[:1] > "M"]
 print(f"List of names from A to M:\n{sorted(names_between_am)}\nList of other names:\n{sorted(other_names)}")
 
 # task 3
