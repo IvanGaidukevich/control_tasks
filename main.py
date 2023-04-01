@@ -1,7 +1,6 @@
 import names
 from random import randint
 
-
 # Project 1_1B
 while True:
     full_name = input("Enter your name and surname:").title().split()
@@ -41,5 +40,3 @@ while acronim != "":
 for word in poem:
     acronim = f"{acronim}{word[:1]}"
 print(acronim)
-
-
