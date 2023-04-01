@@ -1,6 +1,7 @@
 import names
 from random import randint
 
+
 # Project 1_1B
 while True:
     full_name = input("Enter your name and surname:").title().split()
@@ -22,14 +23,7 @@ print(orders)
 # task 1
 threshold = int(input("Enter threshold:"))
 numbers = [randint(1, 100) for number in range(10)]
-leveler = []
-for number in numbers:
-    if number > threshold:
-        leveler.append("High")
-    elif number < threshold:
-        leveler.append("Low")
-    else:
-        leveler.append("Equal")  # может быть ситуация, когда число равно пороговому значению
+leveler = ["High" if number > threshold else "Low" if number < threshold else "Equals" for number in numbers]
 print(f"{numbers}\n{leveler}")
 
 # task 2
@@ -47,3 +41,5 @@ while acronim != "":
 for word in poem:
     acronim = f"{acronim}{word[:1]}"
 print(acronim)
+
+
