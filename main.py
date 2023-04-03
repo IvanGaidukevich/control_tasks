@@ -1,5 +1,12 @@
 import names
 from random import randint
+import pandas as pd
+
+# Project 1_4B
+data_frame = pd.read_csv("orderdata_sample.csv")
+data_frame["Total"] = data_frame.Quantity * data_frame.Price + data_frame.Freight
+print(data_frame[["Quantity", "Price", "Freight", "Total"]])
+data_frame.to_csv(r'new_orderdata_sample.csv')
 
 # Project 1_1B
 while True:
