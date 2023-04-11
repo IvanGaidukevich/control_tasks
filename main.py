@@ -1,8 +1,52 @@
 import names
 import doctest
+import logging
 import pandas as pd
 from statistics import mean, StatisticsError
 from random import randint
+from datetime import datetime
+
+
+# Project 1_6B
+
+def csv_data_join(filename_list: list):
+    """
+    Function joins data from any numbers of CSV files.
+    Pandas is used. Logging is used (log.log)
+    Args:
+        filename_list: (list) not empty list with names of CSV files
+    Exception:
+        ValueError: if the list of filenames is empty,
+        returns (str) 'The empty list of filenames'
+        FileNotFoundError: if file or files are not found,
+        returns (str) 'No such file(s)'
+    Returns:
+        str: (str) created file's name using scheme Y-m-d_H-M-S_updated.csv
+
+    >>> csv_data_join([])
+    'The empty list of filenames'
+    >>> csv_data_join(["csv.csv"])
+    'No such file(s)'
+    """
+    export_filename = datetime.today().strftime("%Y-%m-%d_%H-%M-%S") + "_updated.csv"
+    logging.basicConfig(filename="log.log", level=logging.DEBUG, format='%(asctime)s%(levelname)s: %(message)s')
+    try:
+        export_df = pd.concat([pd.read_csv(filename) for filename in filename_list], ignore_index=True)
+        export_df.to_csv(export_filename, index=False)
+        logging.info(f"Data from other files successfully copied to {export_filename}")
+        return export_filename
+    except ValueError:
+        logging.error("The empty list of filenames")
+        return "The empty list of filenames"
+    except FileNotFoundError:
+        logging.error("No such file(s)")
+        return "No such file(s)"
+    except Exception as ex:
+        logging.error(ex)
+        return ex
+
+
+csv_data_join(['students.csv', 'new_students.csv'])
 
 
 # Project 1_5B
@@ -149,12 +193,11 @@ doctest.testmod()
 data_frame = pd.read_csv("orderdata_sample.csv")
 data_frame["Total"] = data_frame.Quantity * data_frame.Price + data_frame.Freight
 print(data_frame[["Quantity", "Price", "Freight", "Total"]])
-data_frame.to_csv(r'new_orderdata_sample.csv')
 
 # Project 1_1B
 while True:
     full_name = input("Enter your name and surname:").title().split()
-    try:  # перехватываю exception, если пользователь ввел  менее или более двух слов.
+    try:
         login = full_name[0][:4] + full_name[1][:1]
         print(f"{full_name[0]} {full_name[1]}: {login}")
         break
@@ -165,7 +208,7 @@ while True:
 products_names = ["milk", "cheese", "bread", "eggs", "butter", "sweets", "cookies", "water", "tea", "coffee"]
 products_prices = [82.10, 159.99, 22.50, 81.35, 150.20, 200.99, 100.50, 30.45, 56.35, 299.99]
 employees_ids = [111, 112, 123, 134, 156, 157, 158, 180, 182, 183]
-orders = list(zip(products_names, products_prices, employees_ids))  # получился единый список с кортежами
+orders = list(zip(products_names, products_prices, employees_ids))
 print(orders)
 
 # Project 1_3B
